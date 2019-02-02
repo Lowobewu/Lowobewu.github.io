@@ -25,29 +25,23 @@ class Vector {
 	}
 
 	times(number) {
-		this.x *= number
-		this.y *= number
-		return this
+		return new Vector(this.x * number, this.y * number)
 	}
 
 	add(vector) {
-		this.x += vector.x
-		this.y += vector.y
-		return this
+		return new Vector(this.x + vector.x, this.y + vector.y)
 	}
 
 	sub(vector) {
-		this.x -= vector.x
-		this.y -= vector.y
-		return this
+		return new Vector(this.x - vector.x, this.y - vector.y)
 	}
 
 	static add(vectorA, vectorB) {
-		return new Vector(vectorA.x + vectorB.x, vectorA.y + vectorB.y)
+		return vectorA.add(vectorB)
 	}
 
 	static sub(vectorA, vectorB) {
-		return new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y)
+		return vectorA.sub(vectorB)
 	}
 
 	static dot(vectorA, vectorB) {
