@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spring</title>
+</head>
+
+<body>
+    <button onclick="stopAnimation()">STOP</button>
+    <input type="number" id="sawWidth" step="1" min="0"  onchange="sawWidth = sawWidthInput.value;change()">
+    <input type="number" id="numberOfPoints" step="1" min="1"  onchange="numberOfPoints = numberOfPointsInput.value;change()">
+    <br>
+	<canvas id="canvas" width="500" height="500" style="border:solid 1px"></canvas>
+    <script src="scripts/main2.js"></script>
+</body>
+
+</html>
