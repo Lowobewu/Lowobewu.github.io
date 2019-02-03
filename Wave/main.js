@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			return particle
 		}).forEach(particle => particle.update(dt))
 
-		drawIn(allParticles.map(particle => drawCircle(particle.x, particle.y, 1 + Math.min(Math.abs(particle.velocity.x),5), '#FF0000')))
+		drawIn(allParticles.map(particle => drawCircle(particle.x, particle.y, 1 + Math.min(Math.max(particle.velocity.x,0),5), '#FF0000')))
 
 		context.fillText('dt : ' + dt, 10, 25);
 		context.fillText('1/dt : ' + 1/dt, 10, 40);
