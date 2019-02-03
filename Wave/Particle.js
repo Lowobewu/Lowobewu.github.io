@@ -24,4 +24,8 @@ class Particle {
         this.acceleration = forceVector.times(1/this.mass)
         return this
     }
+
+    generateForce(callback) {
+        return callback && callback(this.mass, this.position, this.velocity)
+    }
 }
