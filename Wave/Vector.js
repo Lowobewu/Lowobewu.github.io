@@ -36,13 +36,13 @@ class Vector {
 		return new Vector(this.x - vector.x, this.y - vector.y)
 	}
 
-	static add(vectorA, vectorB) {
-		return vectorA.add(vectorB)
+	static sum() {
+		return Array.from(arguments).reduce((acumulator, currentVector)=> acumulator.add(currentVector), new Vector())
 	}
 
-	static sub(vectorA, vectorB) {
-		return vectorA.sub(vectorB)
-	}
+	// static sub() {
+	// 	return Array.from(arguments).reduce((acumulator, currentVector)=> acumulator.sub(currentVector), new Vector())
+	// }
 
 	static dot(vectorA, vectorB) {
 		return vectorA.x*vectorB.x + vectorA.y*vectorB.y
