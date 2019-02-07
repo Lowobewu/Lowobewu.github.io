@@ -25,7 +25,7 @@ class LinkedParticle extends Particle {
 
 const numberOfColumns = 35
 const numberOfRows = 20
-const airResistance = 25
+const airResistanceConstant = 25
 const l = 25
 const constant = 300
 
@@ -44,9 +44,21 @@ for (let i = 0; i < numberOfRows; i++) {
 }
 
 function springForce(springConstant, relaxedLength, springPositionEnd) {
-	return function (mass, springPositionOrigin) {
-		const currentLength = Vector.sub(springPositionOrigin, springPositionEnd)
+	return function(mass, springPositionOrigin) {
+		const currentLength = springPositionOrigin.sub(springPositionEnd)
 		return currentLength.unit.times(springConstant*(currentLength.length - relaxedLength))
+	}
+}
+
+function linkedSpring(particle, link) {
+	return function() {
+		return link.linkedParticle.generateForce(springForce(link.springConstant, link.relaxedLength, particle.position))
+	}
+}
+
+function airResistanceForce(airResistance) {
+	return function(mass, position, velocity) {
+		return velocity.times(-airResistance)
 	}
 }
 
@@ -80,9 +92,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		const dt = (currentTime - lastTime) / 1000 // Delta time in seconds
 
 		allParticles.map(particle => {
-			particle.applyForce(particle.links.reduce((totalForce, link) => {
-				return totalForce.add(link.linkedParticle.generateForce(springForce(link.springConstant, link.relaxedLength, particle.position)))
-			}, particle.velocity.times(-airResistance)))
+			// particle.applyForce(particle.links.reduce((totalForce, link) => {
+			//	return totalForce.add(link.linkedParticle.generateForce(springForce(link.springConstant, link.relaxedLength, particle.position)))
+			// }, particle.velocity.times(-airResistance)))
+
+			particle.applyForce(airResistanceForce(airResistanceConstant))
+			particle.links.forEach(link => {
+				particle.applyForce(linkedSpring(particle, link))
+			})
+
 
 			return particle
 		}).forEach(particle => particle.update(dt))
