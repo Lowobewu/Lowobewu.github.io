@@ -11,6 +11,8 @@ class Particle {
         const acceleration = forceVector.times(1/this.mass)
         this.velocity = this.velocity.add(acceleration.times(timeStep))
         this.position = this.position.add(this.velocity.times(timeStep))
+
+        this.forces = []
         return this
     }
     

@@ -40,25 +40,23 @@ for (let i = 0; i < numberOfRows; i++) {
 		const springConstant = i > k - 5 ? constant : constant * 10
 		LinkedParticle.link(allParticles[j-1], allParticles[j], springConstant, l)
 	}
-	allParticles[allParticles.length - numberOfColumns + 1].velocity.x -= 100
+	allParticles[allParticles.length - numberOfColumns].velocity.x += 20
 }
 
-function springForce(springConstant, relaxedLength, springPositionEnd) {
-	return function(mass, springPositionOrigin) {
-		const currentLength = springPositionOrigin.sub(springPositionEnd)
-		return currentLength.unit.times(springConstant*(currentLength.length - relaxedLength))
-	}
-}
-
-function linkedSpring(particle, link) {
+function springForce(springConstant, relaxedLength, elongation) {
 	return function() {
-		return link.linkedParticle.generateForce(springForce(link.springConstant, link.relaxedLength, particle.position))
+		return elongation.unit.times(springConstant*(elongation.length - relaxedLength))
 	}
+}
+
+function linkedSpringForce(particle, link) {
+	const elongation = link.linkedParticle.position.sub(particle.position)
+	return springForce(link.springConstant, link.relaxedLength, elongation)
 }
 
 function airResistanceForce(airResistance) {
 	return function(mass, position, velocity) {
-		return velocity.times(-airResistance)
+		return velocity.unit.times(-airResistance)
 	}
 }
 
@@ -92,15 +90,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		const dt = (currentTime - lastTime) / 1000 // Delta time in seconds
 
 		allParticles.map(particle => {
-			// particle.applyForce(particle.links.reduce((totalForce, link) => {
-			//	return totalForce.add(link.linkedParticle.generateForce(springForce(link.springConstant, link.relaxedLength, particle.position)))
-			// }, particle.velocity.times(-airResistance)))
-
 			particle.applyForce(airResistanceForce(airResistanceConstant))
 			particle.links.forEach(link => {
-				particle.applyForce(linkedSpring(particle, link))
+				particle.applyForce(linkedSpringForce(particle, link))
 			})
-
 
 			return particle
 		}).forEach(particle => particle.update(dt))
