@@ -33,7 +33,7 @@ const allParticles = []
 
 for (let i = 0; i < numberOfRows; i++) {
 	for (let j = 0; j < numberOfColumns; j++) {
-		allParticles.push(new LinkedParticle(`${i} - ${j}`, 30, l * (j + 1), l * (i + 1) + 45))
+		allParticles.push(new LinkedParticle(`${i} - ${j}`, 30, l * (j + 1), l * (i + 1) ))
 	}
 	let k = 0
 	for (let j = allParticles.length - numberOfColumns + 1; j < allParticles.length; j++ , k++) {
