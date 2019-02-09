@@ -23,11 +23,14 @@ class LinkedParticle extends Particle {
 	// To do: Unlink
 }
 
-const numberOfColumns = 35
-const numberOfRows = 20
-const airResistanceConstant = 25
-const l = 25
-const constant = 300
+const urlParams = new URLSearchParams(window.location.search)
+
+const numberOfColumns = urlParams.get('number-of-columns') || 35
+const numberOfRows = urlParams.get('number-of-rows') || 20
+const airResistanceConstant = urlParams.get('air-resistance') || 25
+const l = urlParams.get('length') || 25
+const constant = urlParams.get('spring-constant') || 300
+const constantModifier = urlParams.get('spring-constant-modifier') || 10
 
 const allParticles = []
 
@@ -37,7 +40,7 @@ for (let i = 0; i < numberOfRows; i++) {
 	}
 	let k = 0
 	for (let j = allParticles.length - numberOfColumns + 1; j < allParticles.length; j++ , k++) {
-		const springConstant = i > k - 5 ? constant : constant * 10
+		const springConstant = i > k - 5 ? constant : constant * constantModifier
 		LinkedParticle.link(allParticles[j - 1], allParticles[j], springConstant, l)
 	}
 	allParticles[allParticles.length - numberOfColumns].velocity.x += 20

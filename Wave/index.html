@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>Wave</title>
     <script src="Vector.js"></script>
     <script src="Particle.js"></script>
     <script src="main.js"></script>
+    <style>
+        form > div {
+            float: left;
+        }
+    </style>
 </head>
+
 <body>
+    <form method="get">
+        <div>
+            <label>Number of rows:</label>
+            <input name="number-of-rows" type="number" />
+        </div>
+        <div>
+            <label>Number of columns:</label>
+            <input name="number-of-columns" type="number" />
+        </div>
+        <div>
+            <label>Distance between dots:</label>
+            <input name="length" type="number" />
+        </div>
+        <div>
+            <label>Air resistance:</label>
+            <input name="air-resistance" type="number" />
+        </div>
+        <div>
+            <label>Spring Constant:</label>
+            <input name="spring-constant" type="number" />
+        </div>
+        <div>
+            <label>Spring Constant Modifier:</label>
+            <input name="spring-constant-modifier" type="number" />
+        </div>
+        <input type="submit" value="Set">
+    </form>
     <canvas id="canvas" width="1000" height="600" style="border:solid 1px"></canvas>
 </body>
+
 </html>
