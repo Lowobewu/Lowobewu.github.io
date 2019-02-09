@@ -41,6 +41,16 @@
             <label>Spring Constant Modifier:</label>
             <input name="spring-constant-modifier" type="number" />
         </div>
+        <script>
+            (function() {
+                document.querySelector('[name="number-of-rows"]').value = numberOfRows;
+                document.querySelector('[name="number-of-columns"]').value = numberOfColumns;
+                document.querySelector('[name="length"]').value = l;
+                document.querySelector('[name="air-resistance"]').value = airResistanceConstant;
+                document.querySelector('[name="spring-constant"]').value = constant;
+                document.querySelector('[name="spring-constant-modifier"]').value = constantModifier;
+            })();
+        </script>
         <input type="submit" value="Set">
     </form>
     <canvas id="canvas" width="1000" height="600" style="border:solid 1px"></canvas>
