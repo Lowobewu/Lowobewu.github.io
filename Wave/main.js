@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	let lastTime = 0;
-	(function draw(currentTime = 0) { // Current time in miliseconds
+	(function draw() {
 		context.clearRect(0, 0, canvasWidth, canvasHeight); // To clear the canvas each frame
-		const dt = (currentTime - lastTime) / 1000 // Delta time in seconds
+		const dt = 1/60 // Delta time in seconds
 
 		allParticles.map(particle => {
 			particle.applyForce(airResistanceForce(airResistanceConstant))
@@ -98,11 +98,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			return particle
 		}).forEach(particle => particle.update(dt))
 
-		drawIn(allParticles.map(particle => drawCircle(particle.x, particle.y, 1 + Math.min(Math.max(particle.velocity.x,0),5), '#FF0000')))
+		drawIn(allParticles.map(particle => drawCircle(particle.x, particle.y,1+ Math.min(Math.max(particle.velocity.x,0),5), '#FF0000')))
 
-		context.fillText('dt : ' + dt, 10, 25);
-		context.fillText('1/dt : ' + 1/dt, 10, 40);
-		lastTime = currentTime
 		requestAnimationFrame(draw);
 	})();
 });
