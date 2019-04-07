@@ -1,3 +1,18 @@
+class Ball extends Particle {
+	constructor(mass, x, y, vx, vy, radi, color) {
+		super(mass, x, y, vx, vy)
+		this.radi = radi
+		this.color = color || '#000000'
+	}
+
+	draw(context) {
+		context.beginPath();
+		context.arc(this.x, this.y, this.radi, 0, 2 * Math.PI, true);
+		context.fillStyle = this.color;
+		context.fill();
+	}
+}
+
 function getPosition(element) {
 	let x = 0;
 	let y = 0;
@@ -24,7 +39,7 @@ const canvas = document.getElementById('canvas'),
 
 canvas.addEventListener('mousemove', setMousePosition, false);
 
-const ball = new Particle(10, centerX, centerY, 0, 0)
+const ball = new Ball(10, centerX, centerY, 0, 0, 10, '#FF6A6A')
 
 function springForce(springConstant, relaxedLength, elongation) {
     const magnitude = -springConstant * (elongation.length - relaxedLength);
@@ -65,7 +80,7 @@ function drawSpring(positionA, positionB, _distance, numberOfPoints, sawWidth) {
         const vector = Vector.sum(positionA, distanceUnit.times(step * i), perpendicularDistance[i % 2])
 		context.lineTo(vector.x, vector.y);
 	}
-	context.lineTo(...positionB.xy)
+	context.lineTo(positionB.x, positionB.y)
 	//context.fillStyle = "#000000";
 	context.stroke();
 }
@@ -92,11 +107,7 @@ function draw() {
 
 	ball.applyForce(springForce(spring.k,spring.restLength,distance))
 	ball.update(dt)
-
-	context.beginPath();
-	context.arc(ball.position.x, ball.position.y, 10, 0, 2 * Math.PI, true);
-	context.fillStyle = "#FF6A6A";
-	context.fill();
+	ball.draw(context)
 
 	drawSpring(mousePosition, ball.position, distance, numberOfPoints, sawWidth)
 	if (!stop) requestAnimationFrame(draw);
