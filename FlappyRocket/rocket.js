@@ -7,7 +7,7 @@ class Rocket extends Particle {
 	* @param {Number} options.height - Rocket's height
 	* @param {Number} options.width - Rocket's width
 	*/
-	constructor(options, positionPadding) {
+	constructor(options, positionPadding, speed) {
 		super(1, positionPadding, positionPadding, 0, 0)
 
 		this.impulseMagnitude = -options.impulse
@@ -15,7 +15,7 @@ class Rocket extends Particle {
 		this.width = options.width
 		this.heightHalf = options.height / 2
 		this.widthHalf = options.width / 2
-		this.speed = options.speed
+		this.speed = speed
 		this.paramA = 3 * options.width / 25
 		// this.paramB = 30 * options.width / 25
 		this.paramC = 5 * options.height / 70

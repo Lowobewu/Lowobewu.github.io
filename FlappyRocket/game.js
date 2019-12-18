@@ -37,10 +37,10 @@ class MovingBox {
 }
 const randomBetween = (max = 1, min = 0) => Math.floor(Math.random() * (1 + max - min)) + min
 class BoxesController {
-	constructor(canvasWidth, canvasHeight) {
+	constructor(canvasWidth, canvasHeight, boxSpeed) {
 		this.canvasWidth = canvasWidth
 		this.canvasHeight = canvasHeight
-		this.boxSpeed = 150
+		this.boxSpeed = boxSpeed
 		this.boxes = [
 			new MovingBox(70, 50, canvasWidth, randomBetween(canvasHeight - 100, 100), this.boxSpeed)
 		]
@@ -88,7 +88,8 @@ class Game {
 	* @param {Object} rocketOptions - Rocket's options
 	* @param {Number} [topScore=0] - Topscore
 	*/
-	constructor(canvas, rocketOptions, topScore = 0) {
+	constructor(canvas, rocketOptions, gameSpeed, topScore = 0) {
+		this.gameSpeed = gameSpeed
 		this.topScore = topScore
 		this.canvasWidth = canvas.width
 		this.canvasHeight = canvas.height
@@ -109,8 +110,8 @@ class Game {
 
 	start = () => {
 		this.initialTime = performance.now()
-		this.rocket = new Rocket(this.rocketOptions, this.drawOffset)
-		this.movingBoxes = new BoxesController(this.canvasWidth, this.canvasHeight)
+		this.rocket = new Rocket(this.rocketOptions, this.drawOffset, this.gameSpeed)
+		this.movingBoxes = new BoxesController(this.canvasWidth, this.canvasHeight, this.gameSpeed)
 
 		this.startLoop()
 	}
