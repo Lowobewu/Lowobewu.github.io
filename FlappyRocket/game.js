@@ -89,12 +89,9 @@ class Game {
 	* @param {Number} [topScore=0] - Topscore
 	*/
 	constructor(canvas, rocketOptions, topScore = 0) {
-		// this.canvas = canvas
 		this.topScore = topScore
 		this.canvasWidth = canvas.width
 		this.canvasHeight = canvas.height
-		// this.centerX = this.canvasWidth / 2
-		// this.centerY = this.canvasHeight / 2
 		this.context = canvas.getContext('2d')
 		this.request = undefined
 		this.initialTime = undefined
@@ -113,7 +110,6 @@ class Game {
 	start = () => {
 		this.initialTime = performance.now()
 		this.rocket = new Rocket(this.rocketOptions, this.drawOffset)
-		//this.movingBox = new MovingBox(140, 100, 400, 300, 150)
 		this.movingBoxes = new BoxesController(this.canvasWidth, this.canvasHeight)
 
 		this.startLoop()
@@ -139,7 +135,6 @@ class Game {
 
 	draw = () => {
 		this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
-		// this.movingBox.draw(this.context)
 		this.movingBoxes.draw(this.context)
 		this.rocket.draw(this.context)
 		this.context.fillText(Math.floor(this.time / 100), 10, 50);
@@ -152,7 +147,6 @@ class Game {
 
 		this.rocket.applyForce(() => new Vector(0, this.rocketOptions.impulse))
 		this.rocket.update(1 / 60)
-		//this.movingBox.update(1 / 60)
 		this.movingBoxes.update(1 / 60)
 	}
 
